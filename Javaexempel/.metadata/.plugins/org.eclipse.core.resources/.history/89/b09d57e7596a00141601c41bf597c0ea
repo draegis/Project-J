@@ -48,9 +48,13 @@ public static void main (String[] args)
 			if (t[week][reading] < minTT)
 			{
 				minTT = t[week][reading];
+				if (t[week][temp] < t[week][reading])
+					minTT = t[week][temp];
 			}
 			if (maxTT < t[week][reading]) {
 				maxTT = t[week][reading];
+				if (t[week][reading] < t[week][temp])
+					maxTT = t[week][temp];
 			}
 			sumTT += t[week][reading];
 		}
@@ -68,28 +72,38 @@ public static void main (String[] args)
 		System.out.println("Week " + week + " had a average temperatur of " + avgT[week] );
 	}
 	// the least , greatest and average temperature - whole period 
-	double minTemp = 0;
-	double maxTemp = 0;
+	double minTemp = minT[1];
+	double maxTemp = maxT[1];
 	double sumTemp = 0; 
 	int temp = 0;
+	double avgTemp = sumTemp/nofWeeks;
 	// compute and store the least , greatest and average // temperature for the whole period // 
 	// show the least , greatest and average temperature for // the whole period // 
 	for (int week = 1; week <= nofWeeks; week++)
 	{
 		double minTT = 300.0;
 		double maxTT = -300.0;
-		if (week < nofWeeks) {
+		if (nofWeeks != week) {
 			temp = week + 1;
 		}
-		if (minT[week] < minTT) {
+		if (minT[week] < minTT)
+		{
 			minTT = minT[week];
 		}
-		if (maxT[week] > maxTT) {
+		else if (minT[temp] < minT[week]) {
+			minTT = minT[temp];
+			minT[temp] = minT[week];
+			minT[week] = minTT;
+		}
+		if (maxTT < maxT[week]) {
 			maxTT = maxT[week];
 		}
+		else if (maxT[temp] > maxT[week]) {
+			maxTT= maxT[temp];
+			maxT[temp] = maxT[week];
+			maxT[week] = maxTT;
+		}
 		sumTemp = sumTemp + sumT[week];
-		minTemp = minTT;
-		maxTemp = maxTT;
 	}
 	System.out.println("The minimum temperature over the whole period was " + minTemp);
 	System.out.println("The maximum temperature over the whole period was " + maxTemp);

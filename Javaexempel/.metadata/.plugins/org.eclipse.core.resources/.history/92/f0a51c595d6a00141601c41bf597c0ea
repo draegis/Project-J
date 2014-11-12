@@ -68,8 +68,8 @@ public static void main (String[] args)
 		System.out.println("Week " + week + " had a average temperatur of " + avgT[week] );
 	}
 	// the least , greatest and average temperature - whole period 
-	double minTemp = 0;
-	double maxTemp = 0;
+	double minTemp;
+	double maxTemp;
 	double sumTemp = 0; 
 	int temp = 0;
 	// compute and store the least , greatest and average // temperature for the whole period // 
