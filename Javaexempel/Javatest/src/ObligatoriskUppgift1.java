@@ -36,15 +36,15 @@ class Temperatures {
 		double[] avgT = new double[nofWeeks + 1];
 		// compute and store the least , greatest and average // temperature for
 		// each week. //
+		double minTT = 300.0; // Inital extreme values, this could be done by just assigning the first value instead.
+		double maxTT = -300.0;
 		for (int week = 1; week <= nofWeeks; week++) {
-			double minTT = 300.0; // Inital extreme values, this could be done by just assigning the first value instead.
-			double maxTT = -300.0;
 			double sumTT = 0.0;
 			for (int reading = 1; reading <= nofMeasurementsPerWeek; reading++) {
 				if (t[week][reading] < minTT) { // Will always be true for the first run, after that it's a normal comparison.
 					minTT = t[week][reading];
 				}
-				if (maxTT < t[week][reading]) { // Same as above except reversed.
+				if (t[week][reading] > maxTT) { // Same as above except reversed.
 					maxTT = t[week][reading];
 				}
 				sumTT += t[week][reading]; // Simple addition for each week
@@ -74,18 +74,18 @@ class Temperatures {
 		// show the least , greatest and average temperature for // the whole
 		// period //
 		// The for loop is not memory effective in any way shape or form. But it is easy to understand.
+		double minTP = 300.0; // Initial extreme values
+		double maxTP = -300.0;
 		for (int week = 1; week <= nofWeeks; week++) {
-			double minTT = 300.0; // Initial extreme values
-			double maxTT = -300.0;
-			if (minT[week] < minTT) { // Will always be true the first run unless we are all dead
-				minTT = minT[week]; // Simple process of just adding the lower value to a variable
+			if (minT[week] < minTP) { // Will always be true the first run unless we are all dead
+				minTP = minT[week]; // Simple process of just adding the lower value to a variable
 			}
-			if (maxT[week] > maxTT) { // Same as above except reversed
-				maxTT = maxT[week];
+			if (maxT[week] > maxTP) { // Same as above except reversed
+				maxTP = maxT[week];
 			}
 			sumTemp = sumTemp + sumT[week];
-			minTemp = minTT; // A easy way to simplify the code, sure it's a horrible practice.
-			maxTemp = maxTT; // But it gets the work done in a much simpler way.
+			minTemp = minTP; // A easy way to simplify the code, sure it's a horrible practice.
+			maxTemp = maxTP; // But it gets the work done in a much simpler way.
 		}
 		System.out.println("The minimum temperature over the whole period was "
 				+ minTemp);
@@ -96,6 +96,6 @@ class Temperatures {
 						+ sumTemp);
 		System.out
 				.println("The average of the temperature over the whole period was "
-						+ sumTemp / nofWeeks);
+						+ sumTemp / (nofWeeks*nofMeasurementsPerWeek));
 	}
 }
