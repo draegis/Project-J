@@ -40,6 +40,10 @@ class Triangle {
 		double bis = p / (b + c);
 		return bis;
 	}
+	public static double AreaH(double a, double b) {
+		double d = a*b/2;
+		return d;
+	}
 
 	public static void Turnoff() {
 		Triangle.e = false;
@@ -48,18 +52,40 @@ class Triangle {
 	public static void Input(int choice) {
 		switch (choice) {
 		case 1:
-			System.out.println("Enter all of your triangles sides: ");
-			double[] area = new double[3];
-			try {
-				for (int i = 0; i < area.length; i++) {
-					area[i] = Triangle.in.nextDouble();
+			System.out.println("1. Base & height calculations\n2. Herons Formula\n");
+			int choice2 = Triangle.in.nextInt();
+			switch (choice2){
+			case 1:
+				System.out.println("Enter the base and height of your triangle: ");
+				double[] aree = new double[2];
+				try {
+					for (int i = 0; i< aree.length; i++) {
+						aree[i] = Triangle.in.nextDouble();
+					}
+				} catch (IndexOutOfBoundsException o) {
+					System.out.println("Too many sides entered.");
 				}
-			} catch (IndexOutOfBoundsException o) {
-				System.out.println("Too many sides entered.");
+				double areed = Triangle.AreaH(aree[0], aree[1]);
+				System.out.println("Your triangles area is: " + areed + "\n");
+				break;
+			case 2:
+				System.out.println("Enter all of your triangles sides: ");
+				double[] area = new double[3];
+				try {
+					for (int i = 0; i < area.length; i++) {
+						area[i] = Triangle.in.nextDouble();
+					}
+				} catch (IndexOutOfBoundsException o) {
+					System.out.println("Too many sides entered.");
+				}
+				double aread = Triangle.Area(area[0], area[1], area[2]);
+				System.out.println("Your triangles area is: " + aread + "\n");
+				break;
+			default:
+				System.out.println("Incorrect choice, try again. \n");
+				break;
 			}
-			double aread = Triangle.Area(area[0], area[1], area[2]);
-			System.out.println("Your triangles area is: " + aread + "\n");
-			break;
+				break;
 		case 2:
 			System.out.println("Enter all of your triangles sides: ");
 			double[] circ = new double[3];
@@ -106,6 +132,9 @@ class Triangle {
 		case 5:
 			in.close();
 			Triangle.Turnoff();
+		default: 
+			System.out.println("Incorrect choice, try again. \n");
+			break;
 		}
 	}
 }
